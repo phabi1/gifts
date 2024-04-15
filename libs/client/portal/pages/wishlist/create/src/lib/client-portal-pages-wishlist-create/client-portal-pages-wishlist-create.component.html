@@ -1,0 +1,13 @@
+<div class="container mx-auto">
+  <h1 class="text-2xl my-5">WISHLIST</h1>
+  <div class="shadow rounded p-4 bg-white">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <formly-form
+        [form]="form"
+        [model]="model"
+        [fields]="fields"
+      ></formly-form>
+      <button mat-raised-button color="primary">Create</button>
+    </form>
+  </div>
+</div>

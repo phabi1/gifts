@@ -1,0 +1,6 @@
+<div *ngIf="items.length > 0; else emptyTpl" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <client-portal-pages-wishlist-details-gift-item *ngFor="let item of items" [item]="item"></client-portal-pages-wishlist-details-gift-item>
+</div>
+<ng-template #emptyTpl>
+    <p>No gifts found</p>
+</ng-template>

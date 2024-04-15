@@ -1,0 +1,34 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom", "esnext.asynciterable"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@gifts/client-portal-pages-home": [
+        "libs/client/portal/pages/home/src/index.ts"
+      ],
+      "@gifts/client-portal-pages-wishlist-create": [
+        "libs/client/portal/pages/wishlist/create/src/index.ts"
+      ],
+      "@gifts/client-portal-pages-wishlist-details": [
+        "libs/client/portal/pages/wishlist/details/src/index.ts"
+      ],
+      "@gifts/client-portal-pages-wishlist-settings": [
+        "libs/client/portal/pages/wishlist/settings/src/index.ts"
+      ]
+    },
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["node_modules", "tmp"]
+}
