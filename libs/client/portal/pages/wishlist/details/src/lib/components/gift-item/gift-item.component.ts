@@ -1,37 +1,32 @@
 import { Component, Input, inject } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { Apollo, gql } from 'apollo-angular';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { OfferFormComponent } from '../offer-form/offer-form.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'client-portal-pages-wishlist-details-gift-item',
+  selector: 'gifts-client-portal-pages-wishlist-details-gift-item',
   standalone: true,
-  imports: [MatCardModule],
+  imports: [NgIf, MatButtonModule, MatIconModule],
   templateUrl: './gift-item.component.html',
   styleUrl: './gift-item.component.css',
 })
 export class GiftItemComponent {
-
-  private _apollo: Apollo = inject(Apollo);
+  private _dialog: MatDialog = inject(MatDialog);
 
   @Input()
-  item: any = {}
+  wishlistId = '';
 
-  buy() {
-    this._apollo.mutate({
-      mutation: gql`
-        mutation BuyGift($id: ID!) {
-          buyGift(id: $id) {
-            id
-            name
-            description
-            price
-            isBought
-          }
-        }
-      `,
-      variables: {
-        id: this.item.id
-      }
-    }).subscribe();
+  @Input()
+  item: any = {};
+
+  offer() {
+    this._dialog.open(OfferFormComponent, {
+      data: {
+        wishlistId: this.wishlistId,
+        item: this.item,
+      },
+    });
   }
 }

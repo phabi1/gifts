@@ -1,16 +1,17 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
-    Args,
-    ID,
-    Mutation,
-    Query,
-    Resolver,
-    Subscription,
+  Args,
+  ID,
+  Mutation,
+  Query,
+  Resolver,
+  Subscription,
 } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { AddItemToWishlistCommand } from '../../../wishlist/commands/add-item-to-wishlist/add-item-to-wishlist.command';
 import { AuthenticateWishlistCommand } from '../../../wishlist/commands/authenticate-wishlist/authenticate-wishlist.command';
 import { CreateWishlistCommand } from '../../../wishlist/commands/create-wishlist/create-wishlist.command';
+import { OfferItemCommand } from '../../../wishlist/commands/offer-item/offer-item.command';
 import { UpdateItemInWishlistCommand } from '../../../wishlist/commands/update-item-in-wishlist/update-item-in-wishlist.command';
 import { GetWishlistQuery } from '../../../wishlist/queries/get-wishlist/get-wishlist.query';
 import { CreateWishlistItemInput } from '../../inputs/create-wishlist-item.input';
@@ -71,6 +72,18 @@ export class WishlistResolver {
         itemId,
         data: input,
       })
+    );
+  }
+
+  @Mutation(() => WishlistItem)
+  offerItem(
+    @Args('wishlistId', { type: () => ID }) wishlistId: string,
+    @Args('itemId', { type: () => ID }) itemId: string,
+    @Args('name') name: string,
+    @Args('message', { nullable: true }) message: string
+  ): Promise<WishlistItem> {
+    return this.commandBus.execute(
+      new OfferItemCommand({ wishlistId, itemId, name, message })
     );
   }
 

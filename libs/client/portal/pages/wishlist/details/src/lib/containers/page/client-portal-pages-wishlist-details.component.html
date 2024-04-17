@@ -1,9 +1,18 @@
 <div *ngIf="wishlist; else loadingTpl">
   <div class="container mx-auto">
     <h1 class="text-2xl my-5">{{ wishlist.title }}</h1>
-    <client-portal-pages-wishlist-details-gift-list
+    <div class="flex justify-between">
+      <div>
+        {{ total }} gifts
+      </div>
+      <div>
+        
+      </div>
+    </div>
+    <gifts-client-portal-pages-wishlist-details-gift-list
+      [wishlistId]="wishlist.id"
       [items]="wishlist.items"
-    ></client-portal-pages-wishlist-details-gift-list>
+    ></gifts-client-portal-pages-wishlist-details-gift-list>
   </div>
 </div>
 <ng-template #loadingTpl>Loading...</ng-template>

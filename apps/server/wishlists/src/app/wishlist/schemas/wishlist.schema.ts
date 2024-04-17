@@ -1,8 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-import { IWishlistItem } from "../models/wishlist-item.model";
 import { IWishlist } from "../models/wishlist.model";
-import { WISHLIST_ITEM_SCHEMA } from "./wishlist-item.schema";
+import { WISHLIST_ITEM_SCHEMA, WishlistItem } from "./wishlist-item.schema";
 
 export type WishlistDocument = Wishlist & Document;
 
@@ -16,7 +15,7 @@ export class Wishlist implements IWishlist {
     @Prop()
     description: string;
     @Prop({type: [WISHLIST_ITEM_SCHEMA], default: []})
-    items: IWishlistItem[];
+    items: WishlistItem[];
     @Prop()
     password: string;
     @Prop({required: true})

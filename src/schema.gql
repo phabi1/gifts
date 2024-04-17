@@ -7,6 +7,17 @@ type WishlistAuthenticationResult {
   token: String
 }
 
+type WishlistItemOffer {
+  at: DateTime
+  by: String
+  message: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type WishlistItem {
   id: ID!
   title: String!
@@ -15,6 +26,7 @@ type WishlistItem {
   url: String
   imageUrl: String
   priority: Float!
+  offer: WishlistItemOffer!
 }
 
 type Wishlist {
@@ -33,6 +45,7 @@ type Mutation {
   createWishlist(input: CreateWishlistInput!): Wishlist!
   addItemToWishlist(wishlistId: ID!, input: CreateWishlistItemInput!): WishlistItem!
   updateItemInWishlist(wishlistId: ID!, itemId: ID!, input: UpdateWishlistItemInput!): WishlistItem!
+  offerItem(wishlistId: ID!, itemId: ID!, name: String!, message: String): WishlistItem!
   authenticateWishlist(wishlist: ID!, password: String!): WishlistAuthenticationResult!
 }
 

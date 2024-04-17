@@ -18,63 +18,71 @@ export class ClientPortalPagesWishlistDetailsComponent implements OnInit {
 
   public wishlist: any = null;
 
+  total = 0;
+
   ngOnInit(): void {
+    const source$ = this._route.params.pipe(
+      map((params) => params['wishlist']),
+      distinctUntilChanged()
+    );
 
-    const source$ = this._route.params
+    source$
       .pipe(
-        map((params) => params['wishlist']),
-        distinctUntilChanged(),
-      );
-
-
-    source$.pipe(
-      switchMap((wishlistId) =>
-        this._apollo
-          .query<{ wishlist: any }>(
-            {
-              query: gql`
-          query ($wishlistId: ID!) {
-            wishlist(id: $wishlistId) {
-              id
-              title
-              items {
-                id
-                title
-                imageUrl
+        switchMap((wishlistId) =>
+          this._apollo.query<{ wishlist: any }>({
+            query: gql`
+              query ($wishlistId: ID!) {
+                wishlist(id: $wishlistId) {
+                  id
+                  title
+                  items {
+                    id
+                    title
+                    description
+                    price
+                    imageUrl
+                    url
+                    offer {
+                      at
+                    }
+                  }
+                }
               }
-            }
-          }
-        `,
-              variables: { wishlistId }
-            },)
+            `,
+            variables: { wishlistId },
+          })
+        )
       )
-    )
       .subscribe((result) => {
         this.wishlist = result.data.wishlist;
+        this.total = this.wishlist.items.reduce(
+          (acc: number, item: any) => acc + (!item.offer.at ? 1 : 0),
+          0
+        );
       });
 
-    let subscription: Subscription;
-    source$.subscribe((wishlistId) => {
-      if (subscription) {
-        subscription.unsubscribe();
-      }
-      subscription = this._apollo.subscribe<any>({
-        query: gql`
-        subscription {
-          wishlistUpdated (id: $wishlistId) {
-            id
-            title
-            items {
-              id
-              title
-            }
-          }
-        }
-      `,
-        variables: { wishlistId }
-      }).subscribe((result) => {
-        this.wishlist = result.data.wishlistUpdated;
-      });
-    });
+    // let subscription: Subscription;
+    // source$.subscribe((wishlistId) => {
+    //   if (subscription) {
+    //     subscription.unsubscribe();
+    //   }
+    //   subscription = this._apollo.subscribe<any>({
+    //     query: gql`
+    //     subscription {
+    //       wishlistUpdated (id: $wishlistId) {
+    //         id
+    //         title
+    //         items {
+    //           id
+    //           title
+    //         }
+    //       }
+    //     }
+    //   `,
+    //     variables: { wishlistId }
+    //   }).subscribe((result) => {
+    //     this.wishlist = result.data.wishlistUpdated;
+    //   });
+    // });
   }
 }

@@ -1,12 +1,24 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>{{ item.title }}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image [src]="item.imageUrl" alt="{{ item.title }}" />
-    <mat-card-content>
-        <p>{{ item.description }}</p>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-raised-button color="primary">Buy</button>
-    </mat-card-actions>
-</mat-card>
+<div class="pb-8">
+  <div class="relative shadow rounded p-4 pb-6 bg-white">
+    <div>
+        <img [src]="item.imageUrl" alt="item.title" class="w-full" />
+    </div>
+    <div>
+      {{ item.title }}
+    </div>
+    <div>
+      {{ item.description }}
+    </div>
+    <div>
+      {{ item.price }}
+    </div>
+    <div class="absolute w-full top-full -mt-6 left-0 flex gap-2 justify-center">
+      <button *ngIf="!item.offer.at" mat-fab color="primary" (click)="offer()">
+        <mat-icon>redeem</mat-icon>
+      </button>
+      <a *ngIf="item.url" href="{{ item.url }}" mat-fab target="_blank">
+        <mat-icon>search</mat-icon></a
+      >
+    </div>
+  </div>
+</div>

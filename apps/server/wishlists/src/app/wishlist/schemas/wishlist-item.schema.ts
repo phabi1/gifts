@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IWishlistItem } from '../models/wishlist-item.model';
+import { OFFER_SCHEMA, Offer } from './offer.schema';
 
-@Schema()
+@Schema({ timestamps: true, toJSON: { virtuals: true } })
 export class WishlistItem implements IWishlistItem {
   id: string;
   @Prop({ required: true })
@@ -16,6 +17,8 @@ export class WishlistItem implements IWishlistItem {
   imageUrl: string;
   @Prop({ default: 0 })
   priority: number;
+  @Prop({ type: OFFER_SCHEMA, default: { at: null } })
+  offer: Offer;
 }
 
 export const WISHLIST_ITEM_SCHEMA = SchemaFactory.createForClass(WishlistItem);

@@ -1,0 +1,8 @@
+<div mat-dialog-title>Offer</div>
+<div mat-dialog-content>
+    <formly-form [form]="form" [model]="model" [fields]="fields"></formly-form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button color="primary" (click)="submit()">Offer</button>
+</div>
