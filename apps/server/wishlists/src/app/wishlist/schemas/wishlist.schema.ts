@@ -19,6 +19,8 @@ export class Wishlist implements IWishlist {
     items: IWishlistItem[];
     @Prop()
     password: string;
+    @Prop({required: true})
+    token: string;
 }
 
 export const WISHLIST_SCHEMA = SchemaFactory.createForClass(Wishlist);

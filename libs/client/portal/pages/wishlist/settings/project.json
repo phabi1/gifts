@@ -2,7 +2,7 @@
   "name": "client-portal-pages-wishlist-settings",
   "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/client/portal/pages/wishlist/settings/src",
-  "prefix": "lib",
+  "prefix": "gifts-client-portal-pages-wishlist-settings",
   "projectType": "library",
   "tags": [],
   "targets": {

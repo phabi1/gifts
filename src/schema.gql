@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type WishlistAuthenticationResult {
+  logged: Boolean!
+  token: String
+}
+
 type WishlistItem {
   id: ID!
   title: String!
@@ -9,7 +14,7 @@ type WishlistItem {
   price: Float!
   url: String
   imageUrl: String
-  weight: Float!
+  priority: Float!
 }
 
 type Wishlist {
@@ -26,7 +31,9 @@ type Query {
 
 type Mutation {
   createWishlist(input: CreateWishlistInput!): Wishlist!
-  addItemToWishlist(wishlistId: ID!, item: WishlistItemInput!): WishlistItem!
+  addItemToWishlist(wishlistId: ID!, input: CreateWishlistItemInput!): WishlistItem!
+  updateItemInWishlist(wishlistId: ID!, itemId: ID!, input: UpdateWishlistItemInput!): WishlistItem!
+  authenticateWishlist(wishlist: ID!, password: String!): WishlistAuthenticationResult!
 }
 
 input CreateWishlistInput {
@@ -36,12 +43,21 @@ input CreateWishlistInput {
   password: String!
 }
 
-input WishlistItemInput {
+input CreateWishlistItemInput {
   title: String!
   description: String
   price: Float!
   url: String
   imageUrl: String!
+  weight: Float
+}
+
+input UpdateWishlistItemInput {
+  title: String
+  description: String
+  price: Float
+  url: String
+  imageUrl: String
   weight: Float
 }
 

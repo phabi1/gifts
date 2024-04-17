@@ -1,0 +1,10 @@
+<div mat-dialog-title *ngIf="!data.item">Add Gift</div>
+<div mat-dialog-title *ngIf="data.item">Update Gift</div>
+<div mat-dialog-content>
+  <formly-form [form]="form" [model]="model" [fields]="fields"></formly-form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" *ngIf="!data.item" (click)="save()">Add</button>
+  <button mat-button color="primary" *ngIf="data.item" (click)="save()">Save</button>
+</div>

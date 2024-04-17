@@ -1,0 +1,29 @@
+<div class="container mx-auto">
+  <h1 class="text-2xl py-4">My wishlist</h1>
+  <div
+    *ngIf="
+      (authenicationService.isAuthenticating$ | async) === false;
+      else authenticatingTpl
+    "
+  >
+    <div *ngIf="authenicationService.isLogged$ | async; else loginTpl">
+      <div class="mb-4">
+        <gifts-client-portal-pages-wishlist-settings-informations-form
+          *ngIf="wishlist"
+          [wishlist]="wishlist"
+        ></gifts-client-portal-pages-wishlist-settings-informations-form>
+      </div>
+      <div class="mb-4">
+        <gifts-client-portal-pages-wishlist-settings-products-form
+          *ngIf="wishlist"
+          [wishlist]="wishlist"
+        ></gifts-client-portal-pages-wishlist-settings-products-form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #authenticatingTpl> Authenticating... </ng-template>
+
+<ng-template #loginTpl>
+  <gifts-client-portal-pages-wishlist-settings-login-form></gifts-client-portal-pages-wishlist-settings-login-form>
+</ng-template>
